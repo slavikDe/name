@@ -1,0 +1,10 @@
+*
+!src
+!src/*
+!build.sh
+!run.sh
+!clean.sh
+!.clang-format
+!.gitignore
+!.gitmodules
+!CMakeLists.txt
