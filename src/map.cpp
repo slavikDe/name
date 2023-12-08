@@ -1,5 +1,5 @@
-#include "map.hpp"
 #include "random.hpp"
+#include "map.hpp"
 
 Map::Map() {}
 
