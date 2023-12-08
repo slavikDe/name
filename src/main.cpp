@@ -1,5 +1,11 @@
+#include "glm_format.hpp"
+#include "map.hpp"
 #include <iostream>
 
 int main() {
-  std::cout << "test" << std::endl;
+  Map map;
+
+  map.GenerateCities(50, {10, 10});
+
+  return 0;
 }
