@@ -9,7 +9,7 @@ public:
 
   void FindPathIteration();
 
-  void GetBestPath();
+  void GetBestPath(std::vector<int> &path, float &path_len);
 
 private:
   void RunAnt(float &path_len, std::vector<int> &path);
@@ -22,12 +22,17 @@ private:
 
   void UpdatePheromone();
 
+  float CalculateGreedyPathLen();
+  int GetClosestCity(int current_city, std::set<int> &cities);
+
 private:
   Map map;
   int ants_count;
 
+  float l_min;
+
   std::vector<int> best_path;
   float best_path_len;
 
-  std::map<int, float> added_pheromone_on_roads;
+  std::map<uint64_t, float> added_pheromone_on_roads;
 };

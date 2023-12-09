@@ -27,6 +27,8 @@ public:
 
   uint64_t GetRoadId(int city1_index, int city2_index);
 
+  void AddPheromone(std::map<uint64_t, float> added_pheromone);
+  
 private:
   void CreateEmptyRoads();
 

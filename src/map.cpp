@@ -1,5 +1,5 @@
-#include "random.hpp"
 #include "map.hpp"
+#include "random.hpp"
 
 Map::Map() {}
 
@@ -11,6 +11,8 @@ void Map::GenerateCities(uint count, glm::fvec2 map_size) {
 
     cities.push_back(new_city);
   }
+
+  CreateEmptyRoads();
 }
 
 size_t Map::GetCitiesCount() {
@@ -33,6 +35,20 @@ uint64_t Map::GetRoadId(int city1_index, int city2_index) {
   return id_union.road_id;
 }
 
+void Map::AddPheromone(std::map<uint64_t, float> added_pheromone) {
+  for (auto i : added_pheromone) {
+    roads[i.first].pheromone += i.second;
+  }
+
+  const float evap_factor = 0.6;
+
+  for (auto &r : roads) {
+    r.second.pheromone *= evap_factor;
+
+    r.second.pheromone = std::max<float>(0.1, r.second.pheromone);
+  }
+}
+
 void Map::CreateEmptyRoads() {
   roads.clear();
 
@@ -40,7 +56,7 @@ void Map::CreateEmptyRoads() {
     for (uint32_t j = i + 1; j < cities.size(); j++) {
       Road road;
       road.distance = glm::distance(cities[i], cities[j]);
-      road.pheromone = 0;
+      road.pheromone = 1;
 
       uint64_t road_id = GetRoadId(i, j);
       roads[road_id] = road;
